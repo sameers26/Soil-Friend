@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrient Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+
+     background-image: url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFncmljdWx0dXJlfGVufDB8fDB8fHww');
+             background-size: cover; /* Ensure image covers the entire background */
+             background-position: center; /* Center the background image */
+             background-repeat: no-repeat; /* Prevent image from repeating */
+             height: 100vh; /* Ensures full height */
+         
+ }
+ .container
+ {
+    margin-top: 6%;
+ }
+ 
+ </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title" style="font-family: 'Arial', sans-serif; color: #007bff; font-size: 32px; text-align: center; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">Nutrient Prediction Result</h1>
+
+        <div class="result-container">
+            {% if prediction %}
+            <p id="prediction" class="prediction-text" style="font-size: 18px; font-weight: bold; color: #28a745; text-align: center; margin-bottom: 20px;">Prediction: {{ prediction }}</p>
+
+            <!-- Smaller canvas for the chart -->
+            <canvas id="nutrientChart" width="300" height="200"></canvas>
+            {% else %}
+            <p class="error-message">No prediction data available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        {% if prediction %}
+        const predictionData = JSON.parse('{{ prediction | tojson | safe }}');
+        
+        // Get the canvas element
+        const ctx = document.getElementById('nutrientChart').getContext('2d');
+
+        // Create a bar chart with smaller size
+        const nutrientChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Nitrogen', 'Phosphorus', 'Potassium'],
+                datasets: [{
+                    label: 'Predicted Nutrient Levels',
+                    data: predictionData[0], // Use the prediction data for the chart
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 10,
+                        left: 10,
+                        right: 10
+                    }
+                },
+                responsive: true
+            }
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

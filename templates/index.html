@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    background-image: url('https://www.bhmpics.com/downloads/soil-Wallpapers/6.px870229-image-kwvxdb9m.jpg');
+            background-size: cover; /* Ensure image covers the entire background */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent image from repeating */
+            height: 100vh; /* Ensures full height */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+}
+
+.container {
+    position: relative;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-position: center;
+    margin-left: 11%;
+}
+
+.upload-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.file-label,
+.option-label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.file-input,
+.option-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upload-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="upload-title">Upload Image</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="form-group">
+                <label for="file" class="file-label">Choose an image:</label>
+                <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" class="file-input" required>
+            </div>
+            <div class="form-group">
+                <label for="option" class="option-label">Select an option:</label>
+                <select id="option" name="option" class="option-select" required>
+                    <option value="classify">Classify Soil Type</option>
+                    <option value="predict">Predict Nutrients</option>
+                </select>
+            </div>
+            <button type="submit" class="upload-button">Upload</button>
+        </form>
+    </div>
+</body>
+
+</html>
